@@ -10,7 +10,7 @@ import CoreData
 
 class NewWorkerModel: ObservableObject {
     
-    var imageURI = URL(string: "https://google.com")
+    var imageURI = URL(string: "")
     var name: String = ""
     var surname: String = ""
     var birthday: Date = Date()

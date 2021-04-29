@@ -17,7 +17,7 @@ struct NewWorkerViewController: View {
     var body: some View {
         
         List(){
-            ImageRow()
+            ImageRow(returnedURL: $newWorkerData.imageURI)
             TextRow(result: $newWorkerData.name, rowTitle: "Name")
             TextRow(result: $newWorkerData.surname, rowTitle: "Surname")
             BirthdayRow(result: $newWorkerData.birthday)
@@ -61,15 +61,37 @@ struct NewWorkerViewController_Previews: PreviewProvider {
 }
 
 struct ImageRow: View {
+    
+    @ObservedObject private var imageLoader = ImageLoader()
+    @State var placeholderClicked = false
+    @State private var image: UIImage?
+    @Binding var returnedURL: URL?
+    
     var body: some View{
         HStack{
-            Text("Avatar")
-                .font(.title)
-            Spacer()
-            Image(systemName: "photo")
-                .resizable()
-                .font(.largeTitle)
-                .frame(width: 180, height: 160)
+            if placeholderClicked && image != nil {
+                Text("Avatar")
+                    .font(.title)
+                Spacer()
+                Image(uiImage: image!)
+                    .resizable()
+                    .font(.largeTitle)
+                    .frame(width: 180, height: 160)
+            } else {
+                Text("Avatar")
+                    .font(.title)
+                Spacer()
+                Image(systemName: "photo")
+                    .resizable()
+                    .font(.largeTitle)
+                    .frame(width: 180, height: 160)
+                    .onTapGesture {
+                        placeholderClicked = true
+                        imageLoader.load(url: "https://picsum.photos/180/160")
+                        image = imageLoader.downloadedImage
+                        returnedURL = imageLoader.redirectedURL
+                    }
+            }
         }.padding(.bottom, 10)
     }
 }
