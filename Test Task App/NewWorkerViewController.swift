@@ -9,20 +9,46 @@ import SwiftUI
 
 struct NewWorkerViewController: View {
     
-    @State private var name: String = ""
-    @State private var surname: String = ""
-    @State private var birthday: Date = Date()
-    @State private var company: String = "Apple"
+    @StateObject private var newWorkerData = NewWorkerModel()
     
+    @State private var showingErrorAlert = false
+    @State private var showingAlert = false
     
     var body: some View {
+        
         List(){
             ImageRow()
-            TextRow(result: $name, rowTitle: "Name")
-            TextRow(result: $surname, rowTitle: "Surname")
-            BirthdayRow(result: $birthday)
-            CompanyRow(result: $company)
-            ButtonRow()
+            TextRow(result: $newWorkerData.name, rowTitle: "Name")
+            TextRow(result: $newWorkerData.surname, rowTitle: "Surname")
+            BirthdayRow(result: $newWorkerData.birthday)
+            CompanyRow(result: $newWorkerData.company)
+            
+            HStack{
+                Spacer()
+                Button("Save new worker"){
+                    showingErrorAlert = false
+                    if newWorkerData.checkNewWorkerData() {
+                        newWorkerData.save()
+                        showingAlert.toggle()
+                    } else {
+                        showingErrorAlert.toggle()
+                        showingAlert.toggle()
+                    }
+                }.font(.title)
+                .foregroundColor(.blue)
+                .padding(5)
+                .overlay(RoundedRectangle(cornerRadius: 17)
+                            .stroke(Color.black, lineWidth: 3)
+                )
+                .alert(isPresented: $showingAlert){
+                    if showingErrorAlert {
+                        return Alert(title: Text("All fields must be filled!"), dismissButton: .default(Text("OK")))
+                    } else {
+                        return Alert(title: Text("New worker was successfully saved!"), dismissButton: .default(Text("OK")))
+                    }
+                }
+                Spacer()
+            }.padding(.vertical, 5)
         }
     }
 }
@@ -100,26 +126,3 @@ struct CompanyRow: View {
     }
 }
 
-struct ButtonRow: View {
-    @State private var showingAlert = false
-    
-    var body: some View {
-        HStack{
-            Spacer()
-            
-            Button("Save new worker"){
-                self.showingAlert.toggle()
-            }.font(.title)
-            .foregroundColor(.blue)
-            .padding(5)
-            .overlay(RoundedRectangle(cornerRadius: 17)
-                        .stroke(Color.black, lineWidth: 3)
-            )
-            .alert(isPresented: $showingAlert){
-                Alert( title: Text("New worker was successfully saved!"), dismissButton: .default(Text("OK")) )
-            }
-            
-            Spacer()
-        }.padding(.vertical, 5)
-    }
-}
