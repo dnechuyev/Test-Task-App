@@ -15,6 +15,11 @@ class NewWorkerModel: ObservableObject {
     var surname: String = ""
     var birthday: Date = Date()
     @Published var company: String = ""
+    @Published var workers: [WorkerViewModel] = []
+    
+    init(){
+        getAllWorkers()
+    }
     
     func checkNewWorkerData() -> Bool {
         if imageURI == URL(string: "") || name == "" || surname == "" || birthday >= Date() {
@@ -22,6 +27,10 @@ class NewWorkerModel: ObservableObject {
         } else {
             return true
         }
+    }
+    
+    func getAllWorkers() {
+        workers = CoreDataController.shared.getAllWorkers().map(WorkerViewModel.init)
     }
     
     func save() {
@@ -34,6 +43,36 @@ class NewWorkerModel: ObservableObject {
         database.company = company
         
         CoreDataController.shared.save()
+    }
+    
+}
+
+struct WorkerViewModel {
+    
+    let workerEntity: WorkerEntity
+    
+    var id: NSManagedObjectID {
+        return workerEntity.objectID
+    }
+    
+    var name: String {
+        return workerEntity.name ?? ""
+    }
+    
+    var surname: String {
+        return workerEntity.second_name ?? ""
+    }
+    
+    var imageURL: URL {
+        return workerEntity.image ?? URL(string: "")!
+    }
+    
+    var birthday: Date {
+        return workerEntity.birthday ?? Date()
+    }
+    
+    var company: String {
+        return workerEntity.company ?? ""
     }
     
 }

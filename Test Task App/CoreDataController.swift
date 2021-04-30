@@ -17,6 +17,17 @@ class CoreDataController {
         return persistentContainer.viewContext
     }
     
+    func getAllWorkers() -> [WorkerEntity] {
+        
+        let request: NSFetchRequest<WorkerEntity> = WorkerEntity.fetchRequest()
+        
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+    }
+    
     func save() {
         do {
             try viewContext.save()

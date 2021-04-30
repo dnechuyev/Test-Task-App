@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewWorkerViewController: View {
     
-    @StateObject private var newWorkerData = NewWorkerModel()
+    @EnvironmentObject var newWorkerData: NewWorkerModel
     
     @State private var showingErrorAlert = false
     @State private var showingAlert = false
@@ -57,6 +57,7 @@ struct NewWorkerViewController_Previews: PreviewProvider {
     static var previews: some View {
         NewWorkerViewController()
             .previewDevice("iPhone 12 Pro Max")
+            .environmentObject(NewWorkerModel())
     }
 }
 

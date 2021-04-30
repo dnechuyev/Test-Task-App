@@ -15,7 +15,7 @@ class ImageLoader: ObservableObject {
     var redirectedURL: URL?
     let didChange = PassthroughSubject<ImageLoader?, Never>()
     
-    func  load(url: String) {
+    func load(url: String) {
         
         guard let imageURL = URL(string: url) else {
             fatalError("ImageURL is not correct!")
@@ -38,4 +38,5 @@ class ImageLoader: ObservableObject {
             
         }.resume()
     }
+    
 }

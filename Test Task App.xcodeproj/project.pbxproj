@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8B0494BE263AF75100967A65 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0494BD263AF75100967A65 /* ImageLoader.swift */; };
+		8B0494C2263B425C00967A65 /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0494C1263B425C00967A65 /* UITabBarController.swift */; };
+		8B299852263BD48300B8F686 /* TFAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B299851263BD48300B8F686 /* TFAlert.swift */; };
+		8B299856263BFDEA00B8F686 /* DetailWorkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B299855263BFDEA00B8F686 /* DetailWorkerView.swift */; };
 		8BE1A1B92639A526008BD3D4 /* Test_Task_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1A1B82639A526008BD3D4 /* Test_Task_App.swift */; };
 		8BE1A1BB2639A526008BD3D4 /* NewWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1A1BA2639A526008BD3D4 /* NewWorkerViewController.swift */; };
 		8BE1A1BD2639A52B008BD3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE1A1BC2639A52B008BD3D4 /* Assets.xcassets */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		8B0494BD263AF75100967A65 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		8B0494C1263B425C00967A65 /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
+		8B299851263BD48300B8F686 /* TFAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFAlert.swift; sourceTree = "<group>"; };
+		8B299855263BFDEA00B8F686 /* DetailWorkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWorkerView.swift; sourceTree = "<group>"; };
 		8BE1A1B52639A526008BD3D4 /* Test Task App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Task App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE1A1B82639A526008BD3D4 /* Test_Task_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_Task_App.swift; sourceTree = "<group>"; };
 		8BE1A1BA2639A526008BD3D4 /* NewWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkerViewController.swift; sourceTree = "<group>"; };
@@ -61,9 +67,12 @@
 			isa = PBXGroup;
 			children = (
 				8BE1A1B82639A526008BD3D4 /* Test_Task_App.swift */,
+				8B0494C1263B425C00967A65 /* UITabBarController.swift */,
 				8BE1A1BA2639A526008BD3D4 /* NewWorkerViewController.swift */,
+				8B299855263BFDEA00B8F686 /* DetailWorkerView.swift */,
 				8BE1A1D12639E26C008BD3D4 /* NewWorkerModel.swift */,
 				8BE1A1CE2639D7D1008BD3D4 /* CoreDataController.swift */,
+				8B299851263BD48300B8F686 /* TFAlert.swift */,
 				8B0494BD263AF75100967A65 /* ImageLoader.swift */,
 				8BE1A1BC2639A52B008BD3D4 /* Assets.xcassets */,
 				8BE1A1C12639A52B008BD3D4 /* Info.plist */,
@@ -150,12 +159,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B0494C2263B425C00967A65 /* UITabBarController.swift in Sources */,
 				8BE1A1CC2639B2EA008BD3D4 /* Test_Task_App.xcdatamodeld in Sources */,
+				8B299852263BD48300B8F686 /* TFAlert.swift in Sources */,
 				8BE1A1BB2639A526008BD3D4 /* NewWorkerViewController.swift in Sources */,
 				8B0494BE263AF75100967A65 /* ImageLoader.swift in Sources */,
 				8BE1A1CF2639D7D1008BD3D4 /* CoreDataController.swift in Sources */,
 				8BE1A1B92639A526008BD3D4 /* Test_Task_App.swift in Sources */,
 				8BE1A1D22639E26C008BD3D4 /* NewWorkerModel.swift in Sources */,
+				8B299856263BFDEA00B8F686 /* DetailWorkerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
