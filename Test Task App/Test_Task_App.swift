@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct Test_TaskApp: App {
-    @StateObject var newWorkerData = NewWorkerModel()
+    @StateObject var AppData = AppDataModel()
     var body: some Scene {
         WindowGroup {
             UITabBarController()
-                .environmentObject(newWorkerData)
+                .environmentObject(AppData)
         }
     }
 }

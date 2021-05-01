@@ -28,6 +28,18 @@ class CoreDataController {
         }
     }
     
+    func getAllCompanies() -> [CompanyEntity] {
+        
+        let request: NSFetchRequest<CompanyEntity> = CompanyEntity.fetchRequest()
+        
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+        
+    }
+    
     func save() {
         do {
             try viewContext.save()

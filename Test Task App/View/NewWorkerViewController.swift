@@ -9,26 +9,26 @@ import SwiftUI
 
 struct NewWorkerViewController: View {
     
-    @EnvironmentObject var newWorkerData: NewWorkerModel
-    
+    @EnvironmentObject var appData: AppDataModel
     @State private var showingErrorAlert = false
     @State private var showingAlert = false
     
     var body: some View {
         
         List(){
-            ImageRow(returnedURL: $newWorkerData.imageURI)
-            TextRow(result: $newWorkerData.name, rowTitle: "Name")
-            TextRow(result: $newWorkerData.surname, rowTitle: "Surname")
-            BirthdayRow(result: $newWorkerData.birthday)
-            CompanyRow(result: $newWorkerData.company)
+            ImageRow(returnedURL: $appData.imageURI)
+            TextRow(result: $appData.name, rowTitle: "Name")
+            TextRow(result: $appData.surname, rowTitle: "Surname")
+            BirthdayRow(result: $appData.birthday)
+            CompanyRow(result: $appData.company)
             
             HStack{
                 Spacer()
                 Button("Save new worker"){
                     showingErrorAlert = false
-                    if newWorkerData.checkNewWorkerData() {
-                        newWorkerData.save()
+                    if appData.checkNewWorkerData() {
+                        appData.saveWorker()
+                        appData.getAllWorkers()
                         showingAlert.toggle()
                     } else {
                         showingErrorAlert.toggle()
@@ -57,43 +57,43 @@ struct NewWorkerViewController_Previews: PreviewProvider {
     static var previews: some View {
         NewWorkerViewController()
             .previewDevice("iPhone 12 Pro Max")
-            .environmentObject(NewWorkerModel())
+            .environmentObject(AppDataModel())
     }
 }
 
 struct ImageRow: View {
     
     @ObservedObject private var imageLoader = ImageLoader()
-    @State var placeholderClicked = false
     @State private var image: UIImage?
     @Binding var returnedURL: URL?
     
     var body: some View{
-        HStack{
-            if placeholderClicked && image != nil {
-                Text("Avatar")
-                    .font(.title)
-                Spacer()
-                Image(uiImage: image!)
-                    .resizable()
-                    .font(.largeTitle)
-                    .frame(width: 180, height: 160)
-            } else {
-                Text("Avatar")
-                    .font(.title)
-                Spacer()
-                Image(systemName: "photo")
-                    .resizable()
-                    .font(.largeTitle)
-                    .frame(width: 180, height: 160)
-                    .onTapGesture {
-                        placeholderClicked = true
-                        imageLoader.load(url: "https://picsum.photos/180/160")
-                        image = imageLoader.downloadedImage
-                        returnedURL = imageLoader.redirectedURL
-                    }
-            }
-        }.padding(.bottom, 10)
+        
+        ZStack{
+            HStack{
+                if image != nil {
+                    Text("Avatar")
+                        .font(.title)
+                    Spacer()
+                    Image(uiImage: image!)
+                        .resizable()
+                        .font(.largeTitle)
+                        .frame(width: 180, height: 160)
+                } else {
+                    
+                    Text("Avatar")
+                        .font(.title)
+                    Spacer()
+                    Image(systemName: "photo")
+                        .resizable()
+                        .font(.largeTitle)
+                        .frame(width: 180, height: 160)
+                }
+            }.padding(.bottom, 10)
+            NavigationLink(destination: ImageCollectionView(resultURL: $returnedURL, resultUIImage: $image)){
+                EmptyView()
+            }.buttonStyle(PlainButtonStyle())
+        }
     }
 }
 
@@ -132,14 +132,15 @@ struct BirthdayRow: View {
 }
 
 struct CompanyRow: View {
+    
     @Binding var result: String
-    let companiesArr = ["Apple", "Google", "IBM", "Tesla", "Microsoft"]
+    @EnvironmentObject var appData: AppDataModel
     
     var body: some View {
         HStack{
             Picker( selection: $result, label: Text("Company:") ) {
-                ForEach(0..<companiesArr.count) { index in
-                    Text("\(companiesArr[index])").tag("\(companiesArr[index])")
+                ForEach(appData.companies, id: \.id) { index in
+                    Text("\(index.name)").tag("\(index.name)")
                 }
             }.pickerStyle(MenuPickerStyle())
             .font(.title)

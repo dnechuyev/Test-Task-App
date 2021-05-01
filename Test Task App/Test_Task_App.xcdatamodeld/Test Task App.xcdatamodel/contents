@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CompanyEntity" representedClassName="CompanyEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="employees" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkerEntity" inverseName="company" inverseEntity="WorkerEntity"/>
+    </entity>
     <entity name="WorkerEntity" representedClassName="WorkerEntity" syncable="YES" codeGenerationType="class">
         <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="company" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="second_name" optional="YES" attributeType="String"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyEntity" inverseName="employees" inverseEntity="CompanyEntity"/>
     </entity>
     <elements>
-        <element name="WorkerEntity" positionX="-63" positionY="-18" width="128" height="14"/>
+        <element name="WorkerEntity" positionX="-365.0615234375" positionY="-130.0064697265625" width="128" height="118"/>
+        <element name="CompanyEntity" positionX="-71.029296875" positionY="-148.0154418945312" width="128" height="73"/>
     </elements>
 </model>
