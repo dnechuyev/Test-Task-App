@@ -13,36 +13,64 @@ struct UITabBarController: View {
     @EnvironmentObject var appData: AppDataModel
     @State var showAddCompanyAlert = false
     
+    func deleteWorker(at offsets: IndexSet) {
+        
+        offsets.forEach { index in
+            let worker =  appData.workers[index]
+            appData.deleteWorker(worker: worker)
+        }
+        
+        appData.getAllWorkers()
+        appData.getAllCompanies()
+    }
+    
+    func deleteCompany(at offsets: IndexSet) {
+        
+        offsets.forEach { index in
+            let company =  appData.companies[index]
+            appData.deleteCompany(company: company)
+        }
+        
+        appData.getAllCompanies()
+        appData.getAllWorkers()
+    }
+    
     var body: some View {
         TabView{
             NavigationView{
-                List(appData.workers, id: \.id){ worker in
-                    NavigationLink(destination: DetailWorkerView(name: worker.name, surname: worker.surname, imageURL: worker.imageURL, birthday: worker.birthday, company: worker.company)){
-                    Text(worker.name)
-                    Text(worker.surname)
-                    }
+                List{
+                    ForEach(appData.workers, id: \.id){ worker in
+                        NavigationLink(destination: DetailWorkerView(name: worker.name, surname: worker.surname, imageURL: worker.imageURL, birthday: worker.birthday, company: worker.company)){
+                            Text(worker.name)
+                            Text(worker.surname)
+                        }
+                    }.onDelete(perform: deleteWorker)
                     
                 }.padding(.horizontal, -20)
                 .navigationBarTitle("List")
-
-                    .navigationBarItems(
-                        trailing:
-                            NavigationLink(destination: NewWorkerViewController()) {
-                                Text("Создать")
-                            }
-                    )
+                
+                .navigationBarItems(
+                    trailing:
+                        NavigationLink(destination: NewWorkerViewController()) {
+                            Text("Создать")
+                        }
+                )
             }.tabItem {
                 Text("Сотрудники")
             }
             
             NavigationView{
-                List(appData.companies, id: \.id){ company in
-                    Text("\(company.name)")
+                List{
+                    ForEach(appData.companies, id: \.id){ company in
+                        NavigationLink(destination: DetailCompanyView(id: company.id, in: CoreDataController.shared.viewContext)){
+                            Text("\(company.name)")
+                        }
+                    }.onDelete(perform: deleteCompany)
                 }.alert(isPresented: $showAddCompanyAlert,
                         TextAlert(title: "New company", message: "Enter new company", keyboardType: .numberPad) { result in
                             if let text = result {
-                                if text != "" {
-                                    appData.companyName = text
+                                appData.companyName = text
+                                if appData.checkCompanyData() {
                                     appData.saveCompany()
                                     appData.getAllCompanies()
                                 }

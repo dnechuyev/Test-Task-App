@@ -19,6 +19,7 @@
 		8BE1A1CC2639B2EA008BD3D4 /* Test_Task_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1A1CA2639B2EA008BD3D4 /* Test_Task_App.xcdatamodeld */; };
 		8BE1A1CF2639D7D1008BD3D4 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1A1CE2639D7D1008BD3D4 /* CoreDataController.swift */; };
 		8BE1A1D22639E26C008BD3D4 /* AppDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1A1D12639E26C008BD3D4 /* AppDataModel.swift */; };
+		8BE8BCB3263E0B8600E6D3C1 /* DetailCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE8BCB2263E0B8600E6D3C1 /* DetailCompanyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8BE1A1CB2639B2EA008BD3D4 /* Test Task App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Test Task App.xcdatamodel"; sourceTree = "<group>"; };
 		8BE1A1CE2639D7D1008BD3D4 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		8BE1A1D12639E26C008BD3D4 /* AppDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataModel.swift; sourceTree = "<group>"; };
+		8BE8BCB2263E0B8600E6D3C1 /* DetailCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCompanyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				8B0494C1263B425C00967A65 /* UITabBarController.swift */,
 				8B299855263BFDEA00B8F686 /* DetailWorkerView.swift */,
 				8B29985F263C990B00B8F686 /* ImageCollectionView.swift */,
+				8BE8BCB2263E0B8600E6D3C1 /* DetailCompanyView.swift */,
 				8BE1A1BA2639A526008BD3D4 /* NewWorkerViewController.swift */,
 			);
 			path = View;
@@ -183,6 +186,7 @@
 				8B299852263BD48300B8F686 /* TFAlert.swift in Sources */,
 				8BE1A1BB2639A526008BD3D4 /* NewWorkerViewController.swift in Sources */,
 				8B0494BE263AF75100967A65 /* ImageLoader.swift in Sources */,
+				8BE8BCB3263E0B8600E6D3C1 /* DetailCompanyView.swift in Sources */,
 				8BE1A1CF2639D7D1008BD3D4 /* CoreDataController.swift in Sources */,
 				8BE1A1B92639A526008BD3D4 /* Test_Task_App.swift in Sources */,
 				8B299860263C990B00B8F686 /* ImageCollectionView.swift in Sources */,

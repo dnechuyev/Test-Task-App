@@ -37,7 +37,36 @@ class CoreDataController {
         } catch {
             return []
         }
+    }
+    
+    func getWorkerByID(id: NSManagedObjectID) -> WorkerEntity? {
         
+        do {
+            return try viewContext.existingObject(with: id) as? WorkerEntity
+        } catch {
+            return nil
+        }
+    }
+    
+    func getCompanyByID(id: NSManagedObjectID) -> CompanyEntity? {
+        
+        do {
+            return try viewContext.existingObject(with: id) as? CompanyEntity
+        } catch {
+            return nil
+        }
+    }
+    
+    func deleteWorker(worker: WorkerEntity) {
+        
+        viewContext.delete(worker)
+        save()
+    }
+    
+    func deleteCompany(company: CompanyEntity) {
+        
+        viewContext.delete(company)
+        save()
     }
     
     func save() {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct NewWorkerViewController: View {
     
@@ -139,8 +140,8 @@ struct CompanyRow: View {
     var body: some View {
         HStack{
             Picker( selection: $result, label: Text("Company:") ) {
-                ForEach(appData.companies, id: \.id) { index in
-                    Text("\(index.name)").tag("\(index.name)")
+                ForEach(appData.companies, id:\.id) { company in
+                    Text("\(company.name)").tag("\(company.name)")
                 }
             }.pickerStyle(MenuPickerStyle())
             .font(.title)

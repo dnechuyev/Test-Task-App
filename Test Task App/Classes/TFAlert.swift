@@ -21,22 +21,27 @@ public struct TextAlert {
 }
 
 extension UIAlertController {
+    
   convenience init(alert: TextAlert) {
+    
     self.init(title: alert.title, message: alert.message, preferredStyle: .alert)
     addTextField {
        $0.placeholder = alert.placeholder
        $0.keyboardType = alert.keyboardType
     }
+    
     if let cancel = alert.cancel {
       addAction(UIAlertAction(title: cancel, style: .cancel) { _ in
         alert.action(nil)
       })
     }
+    
     if let secondaryActionTitle = alert.secondaryActionTitle {
        addAction(UIAlertAction(title: secondaryActionTitle, style: .default, handler: { _ in
          alert.secondaryAction?()
        }))
     }
+    
     let textField = self.textFields?.first
     addAction(UIAlertAction(title: alert.accept, style: .default) { _ in
       alert.action(textField?.text)
@@ -45,6 +50,7 @@ extension UIAlertController {
 }
 
 struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
+    
   @Binding var isPresented: Bool
   let alert: TextAlert
   let content: Content
@@ -54,6 +60,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
   }
 
   final class Coordinator {
+    
     var alertController: UIAlertController?
     init(_ controller: UIAlertController? = nil) {
        self.alertController = controller
@@ -65,7 +72,9 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
   }
 
   func updateUIViewController(_ uiViewController: UIHostingController<Content>, context: UIViewControllerRepresentableContext<AlertWrapper>) {
+    
     uiViewController.rootView = content
+    
     if isPresented && uiViewController.presentedViewController == nil {
       var alert = self.alert
       alert.action = {
@@ -75,6 +84,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
       context.coordinator.alertController = UIAlertController(alert: alert)
       uiViewController.present(context.coordinator.alertController!, animated: true)
     }
+    
     if !isPresented && uiViewController.presentedViewController == context.coordinator.alertController {
       uiViewController.dismiss(animated: true)
     }
@@ -82,6 +92,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
 }
 
 extension View {
+    
   public func alert(isPresented: Binding<Bool>, _ alert: TextAlert) -> some View {
     AlertWrapper(isPresented: isPresented, alert: alert, content: self)
   }

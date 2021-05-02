@@ -15,6 +15,7 @@ class AppDataModel: ObservableObject {
     var surname: String = ""
     var birthday: Date = Date()
     var companyName: String = ""
+    
     @Published var company: String = ""
     @Published var workers: [WorkerViewModel] = []
     @Published var companies: [CompanyViewModel] = []
@@ -25,11 +26,21 @@ class AppDataModel: ObservableObject {
     }
     
     func checkNewWorkerData() -> Bool {
+        
         if imageURI == URL(string: "") || name == "" || surname == "" || birthday >= Date() {
             return false
         } else {
             return true
         }
+    }
+    
+    func checkCompanyData() -> Bool {
+
+        if (companies.first(where: {$0.name == companyName}) != nil) || companyName == "" {
+            return false
+        } else {
+            return true
+        }        
     }
     
     func getAllWorkers() {
@@ -40,6 +51,22 @@ class AppDataModel: ObservableObject {
         companies = CoreDataController.shared.getAllCompanies().map(CompanyViewModel.init)
     }
     
+    func deleteWorker(worker: WorkerViewModel){
+        
+        let existingWorker = CoreDataController.shared.getWorkerByID(id: worker.id)
+        if let existingWorker = existingWorker {
+            CoreDataController.shared.deleteWorker(worker: existingWorker)
+        }
+    }
+    
+    func deleteCompany(company: CompanyViewModel){
+        
+        let existingCompany = CoreDataController.shared.getCompanyByID(id: company.id)
+        if let existingCompany = existingCompany {
+            CoreDataController.shared.deleteCompany(company: existingCompany)
+        }
+    }
+    
     func saveWorker() {
         
         let database = WorkerEntity(context: CoreDataController.shared.viewContext)
@@ -47,8 +74,11 @@ class AppDataModel: ObservableObject {
         database.name = name
         database.second_name = surname
         database.birthday = birthday
-        database.company = CompanyEntity(context: CoreDataController.shared.viewContext)
-        database.company?.name = company
+        
+        let chosenCompany = companies.first(where: {$0.name == company})
+        if let id = chosenCompany?.id {
+            database.company = try? CoreDataController.shared.viewContext.existingObject(with: id) as? CompanyEntity
+        }
         
         CoreDataController.shared.save()
     }
